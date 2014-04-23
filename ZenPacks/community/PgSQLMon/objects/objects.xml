@@ -461,7 +461,7 @@ SELECT
     SUM(tidx_blks_hit) as tidx_blks_hit,
     SUM(tidx_blks_read) as tidx_blks_read,
     SUM(toast_blks_hit) as toast_blks_hit,
-    SUM(toast_blks_read) as toast_blks_read
+    SUM(toast_blks_read) as toast_blks_read 
 FROM 
     (SELECT 
             C.oid AS relid, 
@@ -493,7 +493,7 @@ FROM
             pg_class X ON T.reltoastidxid = X.oid 
             LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace) 
     WHERE C.relkind IN ('r', 't')
-    GROUP BY C.oid, N.nspname, C.relname, T.oid, X.oid) AS t
+    GROUP BY C.oid, N.nspname, C.relname, T.oid, X.oid) AS t 
 WHERE schemaname NOT IN ('pg_catalog', 'pg_toast', 'information_schema')
 </property>
 <tomanycont id='datapoints'>
