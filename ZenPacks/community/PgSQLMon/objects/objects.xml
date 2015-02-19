@@ -490,9 +490,10 @@ FROM
     FROM pg_class C LEFT JOIN 
             pg_index I ON C.oid = I.indrelid LEFT JOIN 
             pg_class T ON C.reltoastrelid = T.oid LEFT JOIN 
-            pg_class X ON T.reltoastidxid = X.oid 
+              pg_index TI on T.oid = TI.indrelid LEFT JOIN 
+              pg_class X ON TI.indexrelid = X.oid 
             LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace) 
-    WHERE C.relkind IN ('r', 't')
+    WHERE C.relkind IN ('r', 't') 
     GROUP BY C.oid, N.nspname, C.relname, T.oid, X.oid) AS t 
 WHERE schemaname NOT IN ('pg_catalog', 'pg_toast', 'information_schema')
 </property>
